@@ -127,3 +127,16 @@ hr {
   border-top: 1px solid #999;
   margin: 1.8em 0;
 }
+
+/* The cover is one plate, not prose, and it is drawn at the panel's own aspect
+   ratio (1072 x 1448) so that it fills this device's screen exactly. Nothing
+   above should inset it: the text margin belongs to text. (`body#cover` is the
+   id pandoc puts on the cover page.) */
+body#cover {
+  margin: 0;
+  padding: 0;
+}
+#cover-image {
+  margin: 0;
+  padding: 0;
+}
