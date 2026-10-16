@@ -1,7 +1,7 @@
 #!/bin/sh
 # Assemble the book into an EPUB, with the figures.
 #
-#   ./make-epub.sh            # build ../kernink.epub
+#   ./make-epub.sh            # build ../<book>.epub, the committed release
 #   ./make-epub.sh out.epub   # build somewhere else
 #
 # Needs pandoc (3.x). The figure PNGs must already exist; render them with
@@ -9,7 +9,10 @@
 set -eu
 
 cd "$(dirname "$0")"
-out="${1:-../kernink.epub}"
+# The entry is named after the book, so the artifact is too. Nothing below
+# hardcodes a book name: copy the entry for the next one.
+book=$(basename "$(cd .. && pwd)")
+out="${1:-../$book.epub}"
 
 chapters="README.md 00-preface.md 01-hardware.md 02-boot-and-firmware.md \
 03-kernel-and-device-model.md 04-display-and-epdc.md 05-input-and-gestures.md \
@@ -18,7 +21,7 @@ chapters="README.md 00-preface.md 01-hardware.md 02-boot-and-firmware.md \
 10-toolchain-and-deployment.md 11-implications-for-kernink.md \
 12-opportunities-and-horizons.md 99-glossary.md 99-references.md"
 
-../scripts/check-public.sh
+../../scripts/check-public.sh
 
 # pre-flight: every referenced image must exist, or pandoc quietly ships a
 # broken link and the reader shows a placeholder
@@ -46,5 +49,5 @@ pandoc \
   -o "$out" \
   $chapters
 
-../scripts/check-epub.py "$out"
+../../scripts/check-epub.py "$out"
 echo "wrote $out"

@@ -1,6 +1,7 @@
 # build outputs
-/kernink.epub
-the-kindle-from-the-panel-up/figures/shots/
+# each book's <book>.epub is committed on purpose — it is the release —
+# so only the figure-capture scratch is ignored
+the-kindle-from-the-panel-up/src/figures/shots/
 
 # os cruft
 .DS_Store

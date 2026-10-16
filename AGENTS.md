@@ -1,8 +1,8 @@
 # AGENTS.md
 
 Guidance for agentic contributors to this repository. **Read the entry's own `README.md` first** —
-for the Kindle book that is `the-kindle-from-the-panel-up/README.md`, which holds the house rules
-for the prose.
+for the Kindle book that is `the-kindle-from-the-panel-up/src/README.md`, which holds the house
+rules for the prose.
 
 This file deliberately holds **no status**. It is the durable layer: invariants, red lines, and
 conventions.
@@ -13,13 +13,15 @@ conventions.
 
 Everything committed here is published. Two consequences:
 
-- **Never commit a build artifact or a capture.** `kernink.epub` and
-  `the-kindle-from-the-panel-up/figures/shots/` are gitignored for exactly this reason. Never
-  publish a framebuffer capture: captures have contained a live Wi-Fi network-info dialog with the
+- **The release is the one artifact that is committed.** `<book>/<book>.epub` is what a reader
+  downloads, so it lives in the tree, and it is rebuilt whenever `src/` changes — a committed
+  release that no longer matches its source is worse than none. Everything else generated stays out:
+  the figure-capture scratch (`<book>/src/figures/shots/`) is gitignored, and never publish a
+  framebuffer capture at all — captures have contained a live Wi-Fi network-info dialog with the
   device's MAC and IP.
 - **Never commit anything that ties this repo to one physical device or one network.** The masking
   convention — `<key>`, `<port>`, `<device-ip>`, `<host-ip>`, `<gateway>`, `<ssid>`, `<masked>` — is
-  documented in `the-kindle-from-the-panel-up/99-references.md`.
+  documented in `the-kindle-from-the-panel-up/src/99-references.md`.
 
 Run the guard before proposing a commit:
 
@@ -82,6 +84,7 @@ renders correctly without looking at it.
 
 ## When you change something, update what describes it
 
-- Book prose rules and layout constraints → that book's `README.md`
+- Book prose rules and layout constraints → that book's `src/README.md`
+- The committed release → rebuild it: `cd <book>/src && ./make-epub.sh`
 - Durable rules and red lines → this file
 - Current state of a book, and of the project it belongs to → the project, not this repository

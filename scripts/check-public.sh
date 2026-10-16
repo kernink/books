@@ -37,7 +37,7 @@ if [ -n "$hits" ]; then
   echo "possible identifiers in publishable files:" >&2
   echo "$hits" >&2
   echo >&2
-  echo "mask them (the convention is in the-kindle-from-the-panel-up/99-references.md)." >&2
+  echo "mask them (the convention is in the-kindle-from-the-panel-up/src/99-references.md)." >&2
   exit 1
 fi
 
