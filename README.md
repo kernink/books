@@ -15,7 +15,9 @@ means `git clone` (or a single file download) is the whole reading experience. R
 
 ## The Kindle, From the Panel Up
 
-A device-specific architecture reference for building e-ink-native software: sixteen chapters on
+<img src="the-kindle-from-the-panel-up/src/cover.png" alt="The Kindle, From the Panel Up — cover" width="260">
+
+A device-specific architecture reference for building e-ink-native software: chapters on
 the hardware, boot, kernel, display and EPDC, input and multitouch, power and sleep, the userspace
 stack, storage, the wider ecosystem and its licences, the build and deployment path, and finally
 what all of it implies for the architecture that will run on it.
@@ -32,7 +34,8 @@ won, and the write-up says which is which.
   [`the-kindle-from-the-panel-up/src/figures/`](the-kindle-from-the-panel-up/src/figures/)
 
 The figure PNGs are committed, so the build needs nothing but `pandoc`. `node figures/render.mjs`
-re-renders them, and is only needed after changing a `.mjs`.
+re-renders them, and `node cover.mjs` re-renders the cover; both are only needed after changing a
+`.mjs`.
 
 ## Adding a book
 

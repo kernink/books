@@ -4,8 +4,8 @@
 #   ./make-epub.sh            # build ../<book>.epub, the committed release
 #   ./make-epub.sh out.epub   # build somewhere else
 #
-# Needs pandoc (3.x). The figure PNGs must already exist; render them with
-# `node figures/render.mjs`.
+# Needs pandoc (3.x). The figure PNGs and the cover must already exist; render
+# them with `node figures/render.mjs` and `node cover.mjs`.
 set -eu
 
 cd "$(dirname "$0")"
@@ -36,6 +36,11 @@ if [ "$missing" -ne 0 ]; then
   echo "render the figures first: node figures/render.mjs" >&2
   exit 1
 fi
+if [ ! -f cover.png ]; then
+  echo "missing cover: cover.png" >&2
+  echo "render it first: node cover.mjs" >&2
+  exit 1
+fi
 
 pandoc \
   --from=markdown-smart-implicit_figures \
@@ -44,6 +49,7 @@ pandoc \
   --toc --toc-depth=2 \
   --split-level=1 \
   --css=epub.css \
+  --epub-cover-image=cover.png \
   --resource-path=. \
   --syntax-highlighting=monochrome \
   -o "$out" \

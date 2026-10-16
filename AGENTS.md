@@ -46,7 +46,8 @@ invariants; `check-epub.py` fails the build on the first two:
 - **No table wider than two columns.** In a third column a narrow reader hyphenates long tokens
   (`CONFIG_THERMAL_OFF` → `CON-FIG_THERMAL_OFF`), which is no longer the string. Use a list. Do not
   "fix" a failing build by relaxing the check.
-- **No image wider than the panel.** Figures render at 992 px against a 1072 px panel.
+- **No image wider than the panel.** Figures render at 992 px and the cover is exactly 1072 px,
+  against a 1072 px panel.
 - **Nothing whose meaning is its alignment.** Device transcripts stay verbatim as `pre` — their
   over-wide lines are *reported*, not failed, because they are evidence. Authored diagrams, column
   grids and ASCII art do not survive and must become lists.
@@ -82,9 +83,22 @@ renders correctly without looking at it.
 
 ---
 
+## The cover
+
+A cover is not a figure. `src/cover.mjs` writes `src/cover.png`, and `make-epub.sh` hands that to
+pandoc as `--epub-cover-image`. It shares the figures' kit, world and light theme, but it is drawn at
+the panel's own size — 1072 x 1448, the screen the book is about — so the cover is legible on the
+device it describes: greys and black only, no colour, no texture that needs a retina panel. The one
+object on it is the book's thesis (a page, and the damage rectangle you hand the EPDC), labelled with
+numbers taken from the book. `node cover.mjs` emits the `.html`, `.svg` and PNG together, and all
+three are committed, the same as a figure's.
+
+---
+
 ## When you change something, update what describes it
 
 - Book prose rules and layout constraints → that book's `src/README.md`
 - The committed release → rebuild it: `cd <book>/src && ./make-epub.sh`
+- The cover → `node cover.mjs` in `src/`, and commit what it writes
 - Durable rules and red lines → this file
 - Current state of a book, and of the project it belongs to → the project, not this repository
