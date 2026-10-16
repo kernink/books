@@ -1,0 +1,129 @@
+/* Reading styles for the EPUB.
+ *
+ * The book is read on e-ink far more than on glass, and that decides most of
+ * what follows: nothing depends on colour, nothing is smaller than it needs to
+ * be, and the book does not try to out-design the reader.
+ *
+ * It also only *completes* a reader, it does not fight one. KOReader, for
+ * example, lays its own defaults underneath this file (data/epub.css, which
+ * imports html5.css) and then applies this stylesheet on top. Anything not
+ * mentioned here is therefore inherited from whatever the reader was already
+ * doing — the user's chosen typeface, size and margins. Only the handful of
+ * things a reader gets wrong for *this* book are specified.
+ *
+ * One rule is load-bearing: every property that changes font-size also resets
+ * the inline runs nested inside it. Without that, `code` inside a heading
+ * renders at heading-size x code-size, so two sibling headings come out at
+ * different sizes depending on whether they happen to contain a code span.
+ * That is what "the text size is all over the place" usually is.
+ */
+
+body {
+  line-height: 1.5;
+  margin: 0 5%;
+  widows: 2;
+  orphans: 2;
+}
+
+/* Block paragraphs: no first-line indent, a small gap between them.
+   The missing indent matters for more than taste. A full-width illustration
+   is delivered inside a <p>, so a reader's default `p { text-indent: 1.2em }`
+   would shift the whole plate sideways and push its right edge past the text
+   margin. No indent, no shift. */
+p {
+  text-indent: 0;
+  margin: 0 0 0.6em;
+}
+li p {
+  margin: 0;
+}
+
+/* One deliberate scale, narrower than a web page's. */
+h1, h2, h3, h4 {
+  line-height: 1.2;
+  text-indent: 0;
+  page-break-after: avoid;
+  break-after: avoid;
+}
+h1 { font-size: 1.4em;  margin: 1.4em 0 0.6em; }
+h2 { font-size: 1.2em;  margin: 1.3em 0 0.45em; }
+h3 { font-size: 1.05em; margin: 1.1em 0 0.35em; }
+h4 { font-size: 1em;    margin: 1em 0 0.3em; }
+
+/* Monospace. Inline code is only a hair smaller than prose; inside a heading
+   or a table cell it is exactly the size of its surroundings, so it can never
+   compound. */
+code, kbd, samp, pre {
+  font-family: monospace;
+}
+code, kbd, samp {
+  font-size: 0.95em;
+}
+h1 code, h2 code, h3 code, h4 code,
+th code, td code {
+  font-size: 1em;
+}
+
+/* Verbatim blocks. `pre-wrap` is deliberate: a device reader cannot scroll
+   sideways, and clipped evidence is worse than wrapped evidence. */
+pre {
+  font-size: 0.9em;
+  line-height: 1.3;
+  margin: 0.8em 0;
+  padding: 0.5em 0.7em;
+  border-left: 2px solid #888;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+pre code {
+  font-size: 1em;
+}
+
+/* Tables. Font size is left to the reader (KOReader already drops tables to
+   80% for exactly this reason: they are what overflows a small screen). */
+table {
+  border-collapse: collapse;
+  margin: 0.9em 0;
+  width: 100%;
+}
+th, td {
+  border: 1px solid #999;
+  padding: 0.22em 0.4em;
+  text-align: left;
+  vertical-align: top;
+}
+/* KOReader shades header cells; on e-ink that dithers behind the text and
+   costs contrast for nothing. */
+th {
+  background: transparent;
+  font-weight: bold;
+}
+
+/* Captions and pull-quotes. `margin: ... 0` also cancels KOReader's inherited
+   2em blockquote indent, so a caption sits flush with its figure. */
+blockquote {
+  margin: 1em 0;
+  padding: 0 0 0 0.8em;
+  border-left: 3px solid #999;
+  font-size: 1em;
+}
+
+ul, ol {
+  margin-top: 0.45em;
+  margin-bottom: 0.65em;
+}
+
+img, figure {
+  max-width: 100%;
+  height: auto;
+}
+img {
+  display: block;
+  margin: 1.1em auto 0.3em;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #999;
+  margin: 1.8em 0;
+}

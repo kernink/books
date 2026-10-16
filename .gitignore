@@ -1,0 +1,6 @@
+# build outputs
+/kernink.epub
+the-kindle-from-the-panel-up/figures/shots/
+
+# os cruft
+.DS_Store

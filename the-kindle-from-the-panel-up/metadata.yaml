@@ -1,0 +1,11 @@
+---
+title: "The Kindle, From the Panel Up"
+subtitle: "A device-specific architecture reference for building e-ink-native software"
+author: "the kernink project"
+lang: en
+rights: "MIT"
+# A book needs one identity. Pandoc invents a fresh UUID on every run, which
+# makes each rebuild a different book to any reader that keys on it (KOReader
+# keys on the filename, but Calibre and Apple Books do not). Fixed on purpose.
+identifier: "urn:uuid:16d6a291-c0ed-48d8-953b-ad3d26184fcf"
+...
